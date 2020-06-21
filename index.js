@@ -19,7 +19,10 @@ const apiRequest = (method, url, params, callback) => {
 
 	if (method === 'POST') requestOptions.form = params
 
+    console.log('jason', requestOptions)
+
 	request(requestOptions, (err, result, body) => {
+        console.log('Request made', req, body, body && body.error)
 		if (body && body.error) callback(body.error, body)
 		else callback(err, body)
 	})
@@ -61,7 +64,7 @@ class Hypemachine {
 
 		apiRequest('GET', '/me/favorites', {count: 400}, (err, result) => {
 			if (err) return callback([err])
-			
+
 			let tempFavTracks = []
 
 			for (let i of result)
@@ -80,7 +83,7 @@ class Hypemachine {
 
 		apiRequest('GET', '/popular', {count: 100}, (err, result) => {
 			if (err) return callback([err])
-			
+
 			let tempPopularTracks = []
 
 			for (let i of result)
@@ -95,10 +98,10 @@ class Hypemachine {
 				tracks: tempPopularTracks
 			})
 
-		
+
 			apiRequest('GET', '/popular', {count: 100, mode: 'lastweek'}, (err, result) => {
 				if (err) return callback([err])
-				
+
 				let tempLastweekTracks = []
 
 				for (let i of result)
@@ -146,18 +149,22 @@ class Hypemachine {
 			},
 		]
 
+        console.log('jason', 'login', fields)
+
 		manualLogin(fields, (creds) => {
 
 			if (!creds || !creds.user || !creds.password) return callback('stopped')
 
 			settings.hypem.user = creds.user
 
-			apiRequest('POST', '/get_token', {username: creds.user, password: creds.password, device_id: deviceID()}, (err, result) => {
+            console.log('jason', settings)
 
+			apiRequest('POST', '/get_token', {username: creds.user, password: creds.password, device_id: deviceID()}, (err, result) => {
+                console.log('jason', 'get_token', err, result)
 				if (err) return callback(err)
 
 				if (result.status == "error") return callback(result.error_msg)
-				
+
 				settings.hypem.token = result.hm_token
 
 				callback()
@@ -190,7 +197,7 @@ class Hypemachine {
 	 * Like a song
 	 *
 	 * @param track {Object} The track object
-	 */ 
+	 */
 	static like (track, callback) {
 
 		apiRequest('POST', '/me/favorites', {type: 'item', val: track.id}, (err, res) => {
@@ -203,7 +210,7 @@ class Hypemachine {
 	 * UnLike a song
 	 *
 	 * @param track {Object} The track object
-	 */ 
+	 */
 	static unlike (track, callback) {
 		this.like(track, callback) // This is the same method to like/unlike
 	}

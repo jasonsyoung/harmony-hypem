@@ -1,6 +1,6 @@
 {
-  "name": "harmony-hypem",
-  "pluginName": "HypeMachine",
+  "name": "harmony-hypem-v2",
+  "pluginName": "HypeMachineV2",
   "pluginColor": "#75C044",
   "version": "1.0.0",
   "description": "",
@@ -8,6 +8,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vincent L",
+  "author": "Jason Young",
   "license": "ISC"
 }

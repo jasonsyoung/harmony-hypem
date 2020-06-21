@@ -52,7 +52,7 @@ const convertTrack = (rawTrack) => {
 ////////////////////////////////
 ////////////////////////////////
 
-class Hypemachine {
+class HypemachineV2 {
 	/**
 	* Fetch data
 	*
@@ -230,11 +230,11 @@ class Hypemachine {
 
 }
 
-Hypemachine.favsPlaylistId = "favs"
-Hypemachine.scrobbling = true
+HypemachineV2.favsPlaylistId = "favs"
+HypemachineV2.scrobbling = true
 
-Hypemachine.settings = {
+HypemachineV2.settings = {
 	active: false
 }
 
-module.exports = Hypemachine
+module.exports = HypemachineV2
